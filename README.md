@@ -50,7 +50,10 @@ La idea del proyecto es didáctica: Como base para enseñar un backend con auten
 > Ejemplo genérico (adaptable a PHP MVC, Node/Express MVC, etc.)
 
 
-## DER
+## 🗄️ Modelo de Datos
+
+### ERD (Entity Relationship Diagram)
+
 ```mermaid
 erDiagram
     USERS ||--o{ QRS : "creates"
@@ -97,4 +100,4 @@ erDiagram
         varchar user_agent
         tinyint success
     }
-    ```
+```
