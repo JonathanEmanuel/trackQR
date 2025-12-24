@@ -51,7 +51,7 @@ La idea del proyecto es didáctica: Como base para enseñar un backend con auten
 
 
 ## DER
-
+```mermaid
 erDiagram
     USERS ||--o{ QRS : "creates"
     QRS   ||--o{ VISITS : "receives"
@@ -97,3 +97,4 @@ erDiagram
         varchar user_agent
         tinyint success
     }
+    ```
