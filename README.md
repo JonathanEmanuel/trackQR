@@ -1,5 +1,7 @@
 # TrackQR
 
+![Vista de Wireframe](docs/wireframe.png)
+
 # TrackQR
 
 TrackQR es una aplicación web (enfoque backend) para **generar códigos QR asociados a un usuario logueado** y **medir escaneos/visitas** de cada QR mediante un endpoint de tracking.
