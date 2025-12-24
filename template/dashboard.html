@@ -3,11 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrackQR</title>
+    <title>TrackQR - Dashboard</title>
     <link rel="stylesheet" href="libs/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="bg-body-tertiary">
+  <!-- TOPBAR (visible en mobile) -->
+    <nav class="navbar bg-dark border-bottom d-lg-none">
+        <div class="container-fluid">
+            <button class="btn btn-outline-primary" type="button"
+                    data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"
+                    aria-controls="mobileMenu" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <a class="navbar-brand fw-semibold ms-2 text-white" href="#">TrackQR</a>
+
+            <div class="d-flex gap-2">
+                <a class="btn btn-outline-primary btn-sm" href="#">Crear QR</a>
+                <button class="btn btn-outline-danger btn-sm" type="button">Salir</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- OFFCANVAS (mobile) -->
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title" id="mobileMenuLabel">TrackQR</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="offcanvas-body bg-dark">
+            <!-- Menu (mobile) -->
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action active" href="#">Dashboard</a>
+                <a class="list-group-item list-group-item-action" href="#">Mis QRs</a>
+                <a class="list-group-item list-group-item-action" href="#">Crear QR</a>
+                <!-- <a class="list-group-item list-group-item-action" href="#">Métricas</a> -->
+                <!-- <a class="list-group-item list-group-item-action" href="#">Perfil</a> -->
+            </div>
+
+            <hr class="my-4">
+
+            <button class="btn btn-danger w-100" type="button">Cerrar sesión</button>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+
+        <!-- SIDEBAR (desktop) -->
+            <aside class="col-lg-3 col-xl-2 d-none d-lg-block bg-dark border-end sidebar-desktop">
+                <div class="p-3">
+                    <div class="d-flex align-items-center gap-2 mb-3 ">
+                        <div class="rounded bg-secondary-subtle d-flex align-items-center justify-content-center" style="width:36px; height:36px;">
+                            <span class="fw-bold " >TQR</span>
+                        </div>
+                        <div>
+                            <div class="fw-semibold text-white">TrackQR</div>
+                            <div class="text-secondary small text-white">Panel Admin</div>
+                        </div>
+                    </div>
+
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action active" href="#">Dashboard</a>
+                        <a class="list-group-item list-group-item-action" href="#">Mis QRs</a>
+                        <a class="list-group-item list-group-item-action" href="#" onclick="openModal()">Crear QR</a>
+                        <!-- <a class="list-group-item list-group-item-action" href="#">Métricas</a> -->
+                        <!-- <a class="list-group-item list-group-item-action" href="#">Perfil</a> -->
+                    </div>
+
+                    <hr class="my-4">
+
+                    <button class="btn btn-outline-danger w-100" type="button">Cerrar sesión</button>
+                </div>
+            </aside>
+
+            <main class="col-12 col-lg-9 col-xl-10 content-area">
+
+                <section class="mt-5 p-4">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">URL Destino</th>
+                                <th scope="col">Visitas</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Web 1</td>
+                                <td> www.example.com.ar</td>
+                                <td>121</td>
+                                <td>
+                                    <button class="btn btn-outline-primary" onclick="editQR()"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button class="btn btn-outline-danger" onclick="deleteQR()"><i class="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Web 2</td>
+                                <td> www.example.com.ar</td>
+                                <td>11</td>
+                                <td>
+                                    <button class="btn btn-outline-primary" onclick="editQR()"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button class="btn btn-outline-danger" onclick="deleteQR()"><i class="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+            </main>
+
+
+            <!-- Modal QR -->
+
+            <div class="modal fade" tabindex="-1" id="QRModal" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> <i class="fa-solid fa-qrcode"></i> Crear QR Code</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Crear QR Code</p>
+                        <form action="">
+                            <div class="form-floating mb-3">
+                                <input type="text" name="name" class="form-control" id="inputName" placeholder="mi qr code">
+                                <label for="inputName">Nombre del QR (Opcional)</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="url" name="url" class="form-control" id="inputURL" placeholder="www.example.com">
+                                <label for="inputURL">URL destino</label>
+                            </div>
+
+                            <div class="d-grid gap-2 mt-3">
+                                <button class="btn btn-secondary btn-lg" type="submit"><i class="fa-solid fa-qrcode"></i> Generar QR</button>
+                            </div>
+
+                            <hr>
+
+                            <img src="" alt="QR Code">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/dashboard.js" ></script>
 </body>
 </html>

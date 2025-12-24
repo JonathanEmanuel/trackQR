@@ -1,6 +1,17 @@
-main {
+.main-login {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.sidebar-desktop {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+}
+
+    .content-area {
+      min-height: 100vh;
+    }
