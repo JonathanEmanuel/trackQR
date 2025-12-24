@@ -49,3 +49,51 @@ La idea del proyecto es didáctica: Como base para enseñar un backend con auten
 
 > Ejemplo genérico (adaptable a PHP MVC, Node/Express MVC, etc.)
 
+
+## DER
+
+erDiagram
+    USERS ||--o{ QRS : "creates"
+    QRS   ||--o{ VISITS : "receives"
+    USERS ||--o{ LOGIN_LOGS : "auth attempts"
+
+    USERS {
+        int user_id PK
+        varchar name
+        varchar email UK
+        varchar password_hash
+        tinyint is_active
+        timestamp created_at
+    }
+
+    QRS {
+        int qr_id PK
+        int user_id FK
+        varchar destination_url
+        timestamp created_at
+    }
+
+    VISITS {
+        bigint visit_id PK
+        int qr_id FK
+        timestamp visited_at
+        varchar ip_address
+        varchar user_agent
+        varchar referer
+        varchar language
+        varchar device_type
+        varchar operating_system
+        int screen_width
+        int screen_height
+        int timezone_offset
+        varchar session_id
+    }
+
+    LOGIN_LOGS {
+        bigint login_id PK
+        int user_id FK
+        timestamp logged_at
+        varchar ip_address
+        varchar user_agent
+        tinyint success
+    }
